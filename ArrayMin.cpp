@@ -11,6 +11,7 @@ public:
     ~MyArray();
     friend ostream& operator <<(ostream& os, const MyArray array);
     void SetRandom(string& s);
+    void Set(string& s);
     int SumBeforeMin();
 
 private:
@@ -44,6 +45,20 @@ void MyArray::SetRandom(string& s) {
 
     for (int i = 0; i < length; i++)
         v[i] = rand() % 100 + 1;
+}
+void MyArray::Set(string& s) {
+    int length = CheckIndex(s);
+    v.resize(length);
+    v.reserve(length + 1);
+
+    for (int i = 0; i < length; i++) {
+        cout << "Введите [" << i << "] элемент массива: ";
+        string tempStr;
+        cin >> tempStr;
+        int tempInt = CheckIndex(tempStr);
+        v[i] = tempInt;
+    }
+        
 }
 
 int MyArray::CheckIndex(string& s) {
@@ -84,7 +99,8 @@ int main()
 
     MyArray v;
 
-    v.SetRandom(s);
+    //v.SetRandom(s);
+    v.Set(s);
 
     cout << "Массив: " << v << "\n" 
          << "Сумма до минимального элемента: " << v.SumBeforeMin();
